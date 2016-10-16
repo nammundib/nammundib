@@ -1,0 +1,35 @@
+version : '2'
+services :
+
+  db :
+
+    image : mongo:3.2
+
+    restart : always
+
+
+  web:
+    build:
+
+      context: .
+
+    depends_on :
+
+      - db
+
+    links:
+
+      - db:docker-mongo-db
+
+
+    volumes :
+
+      - "/home/docker_u/workshop3/docker-workshop-todo/:/app"
+
+    working_dir : /app
+
+    ports :
+
+      - "5000:5000"
+    restart: always
+    command : python app.py
